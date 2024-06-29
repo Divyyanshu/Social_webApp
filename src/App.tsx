@@ -1,9 +1,10 @@
 import { Button } from '@nextui-org/button'
+import NavbarComponent from './components/ui/navbar'
 
 function App() {
   return (
     <>
-    <button className='bg-stone-800 text-cyan-200'>Basic</button>
+      <NavbarComponent/>
       <Button color='primary' className='bg-zinc-600'>Click</Button>
     </>
   )
