@@ -1,6 +1,13 @@
 
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import NavbarComponent from './components/ui/navbar'
+import Chat from './components/moleclues/Chat'
+import Chats from './components/moleclues/Chats'
+import Feed from './components/moleclues/Feed'
+import Layout from './components/moleclues/Layout'
+import Login from './components/moleclues/Login'
+import Register from './components/moleclues/Register'
+import Account from './components/moleclues/Account'
 
 function App() {
   return (
@@ -8,10 +15,12 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="blogs" element={<Blogs />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="*" element={<NoPage />} />
+          <Route index element={<Feed />} />
+          <Route path="chat" element={<Chats />} />
+          <Route path="chat:chatid" element={<Chat />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Register />} />
+          <Route path="account" element={<Account />} />
         </Route>
       </Routes>
     </BrowserRouter>
