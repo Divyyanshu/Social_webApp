@@ -17,11 +17,11 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Feed />} />
           <Route path="chat" element={<Chats />} />
-          <Route path="chat:chatid" element={<Chat />} />
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Register />} />
+          <Route path="chat/:chatid" element={<Chat />} />
           <Route path="account" element={<Account />} />
         </Route>
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Register />} />
       </Routes>
     </BrowserRouter>
     </>
