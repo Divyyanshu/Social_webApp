@@ -4,6 +4,7 @@ import { Input } from "@nextui-org/input";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import {auth} from "../../lib/firebase"
+import {useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword , } from "firebase/auth";
 
 interface RegisterFormInterface {
@@ -14,12 +15,14 @@ interface RegisterFormInterface {
 
 
 const Register = () => {
+  const navigate = useNavigate()
   const { register, handleSubmit } = useForm<RegisterFormInterface>();
   async function onSubmit(values:RegisterFormInterface) {
     if(values.password === values.ConfirmPassword){
       createUserWithEmailAndPassword(auth,values.email,values.password)
       alert("DONE")
       console.log(values.email,values.password)
+      navigate('/login')
     }
     else{
       alert("Enter correct Password")
