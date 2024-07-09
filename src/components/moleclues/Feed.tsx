@@ -1,9 +1,12 @@
+import NewPostForm from "./NewPostForm";
 
 
 const feed = () => {
   return (
-    <div>feed</div>
-  )
-}
+    <main className="p-5">
+      <NewPostForm></NewPostForm>
+    </main>
+  );
+};
 
-export default feed
+export default feed;
