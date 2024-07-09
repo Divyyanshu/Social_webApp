@@ -5,7 +5,6 @@ import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Button,
   useDisclosure,
   Input,
@@ -29,7 +28,7 @@ export default function NewPostForm() {
   return (
     <>
       <Button onPress={onOpen} color="primary">
-        Open Modal
+        Upload
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
         <ModalContent>
@@ -48,15 +47,10 @@ export default function NewPostForm() {
                     {...register("image")}
                   />
                   <Button color="primary" type="submit" onPress={onClose}>
-                    Sign in
+                    Upload
                   </Button>
                 </form>
               </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="flat" onPress={onClose}>
-                  Close
-                </Button>
-              </ModalFooter>
             </>
           )}
         </ModalContent>
