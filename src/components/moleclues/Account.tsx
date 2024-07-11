@@ -1,5 +1,5 @@
-import { useForm } from "react-hook-form";
-import { ref, set } from "firebase/database";
+import {useForm } from "react-hook-form";
+import { child, ref, set, get } from "firebase/database";
 import {
   Modal,
   ModalContent,
@@ -16,8 +16,17 @@ export default function Account() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { register, handleSubmit } = useForm();
 
-
-
+  const userRef = ref(db, 'users/' + auth.currentUser?.uid);
+  get(child(ref(db), `users/${auth.currentUser?.uid}`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+  
   async function onSubmit(values: any) {
       set(ref(db, 'users/' + auth.currentUser?.uid), {
         name: values.name,
