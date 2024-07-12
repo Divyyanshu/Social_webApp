@@ -10,22 +10,30 @@ import {
   Input,
 } from "@nextui-org/react";
 import {auth, db} from "../../lib/firebase"
+import { useEffect, useState } from "react";
 
 
 export default function Account() {
+  const [userData , setUserData]  = useState({bio: 'jiio', name: 'Divyanshu tailor'})
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { register, handleSubmit } = useForm();
 
-  const userRef = ref(db, 'users/' + auth.currentUser?.uid);
-  get(child(ref(db), `users/${auth.currentUser?.uid}`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      console.log(snapshot.val());
-    } else {
-      console.log("No data available");
-    }
-  }).catch((error) => {
-    console.error(error);
-  });
+  // const userRef = ref(db, 'users/' + auth.currentUser?.uid);
+  useEffect(()=>{
+    get(child(ref(db), `users/${auth.currentUser?.uid}`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        setUserData({
+          name : snapshot.val().name,
+          bio : snapshot.val().bio
+        })
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  },[])
   
   async function onSubmit(values: any) {
       set(ref(db, 'users/' + auth.currentUser?.uid), {
@@ -36,8 +44,8 @@ export default function Account() {
 
   return (
     <>
-    <p>Name : </p>
-    <p>Bio : </p>
+    <p>Name : {userData.name}</p>
+    <p>Bio : {userData.bio}</p>
     <p>Profile : </p>
       <Button onPress={onOpen} color="primary">
         Upload
