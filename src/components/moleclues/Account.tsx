@@ -1,20 +1,37 @@
-import { Button } from "@nextui-org/button"
-import { Input } from "@nextui-org/input"
-import { Modal, ModalContent, ModalHeader, ModalBody, useDisclosure } from "@nextui-org/modal"
 import { useForm } from "react-hook-form";
+import { ref, set } from "firebase/database";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  Button,
+  useDisclosure,
+  Input,
+} from "@nextui-org/react";
+import {auth, db} from "../../lib/firebase"
 
 
-const Account = () => {
+export default function Account() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const { register, handleSubmit } = useForm();
 
+
+
   async function onSubmit(values: any) {
-    console.log(values)
+      set(ref(db, 'users/' + auth.currentUser?.uid), {
+        name: values.name,
+        bio: values.bio,
+      });
   }
+
   return (
     <>
+    <p>Name : </p>
+    <p>Bio : </p>
+    <p>Profile : </p>
       <Button onPress={onOpen} color="primary">
-        Open Modal
+        Upload
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
         <ModalContent>
@@ -25,12 +42,19 @@ const Account = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <Input
                     autoFocus
-                    type="file"
-                    accept=".jpg"
-                    label="Post"
-                    placeholder="Upload your Post"
+                    type="text"
+                    label="Name"
+                    placeholder="Enter Your name"
                     variant="bordered"
-                    {...register("image")}
+                    {...register("name")}
+                  />
+                  <Input
+                    autoFocus
+                    type="text"
+                    label="Bio"
+                    placeholder="Enter Your bio"
+                    variant="bordered"
+                    {...register("bio")}
                   />
                   <Button color="primary" type="submit" onPress={onClose}>
                     Upload
@@ -42,7 +66,5 @@ const Account = () => {
         </ModalContent>
       </Modal>
     </>
-  )
+  );
 }
-
-export default Account
